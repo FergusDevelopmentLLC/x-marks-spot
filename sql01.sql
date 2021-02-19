@@ -91,8 +91,3 @@ CSV HEADER;
 
 select * from 
 population_county;
-
-
-
-
-
