@@ -15,7 +15,7 @@ app.post('/getPointGeoJson', (req, res, next) => {
   const csvUrl = req.body.csvUrl
   const state = req.body.state
 
-  db.getPointGeoJsonFor(csvUrl, state).then((geojson) => {
+  db.getGeoJsonFor(csvUrl, state, 'point').then((geojson) => {
     res.status(200).json(geojson)
   },(error) => {
     res.status(200).json(error)
@@ -28,23 +28,38 @@ app.post('/getPointGeoJson', (req, res, next) => {
 
 app.post('/getCountyGeoJson', async (req, res, next) => {
 
-  try {
+  const csvUrl = req.body.csvUrl
+  const state = req.body.state
 
-    const csvUrl = req.body.csvUrl
-    const state = req.body.state
-
-    if(!isValid(state)) 
-      throw("Error: State name invalid")
-
-    const geojson = await db.getCountyGeoJsonFor(csvUrl, state)
+  db.getGeoJsonFor(csvUrl, state, 'county').then((geojson) => {
     res.status(200).json(geojson)
-  }
-  catch(error) {
+  },(error) => {
     res.status(200).json(error)
-  }
+  })
+  .catch((error) => {
+    res.status(200).json(error)
+  })
 
 })
 
+// app.post('/getCountyGeoJson', async (req, res, next) => {
+
+//   try {
+
+//     const csvUrl = req.body.csvUrl
+//     const state = req.body.state
+
+//     if(!isValid(state)) 
+//       throw("Error: State name invalid")
+
+//     const geojson = await db.getCountyGeoJsonFor(csvUrl, state)
+//     res.status(200).json(geojson)
+//   }
+//   catch(error) {
+//     res.status(200).json(error)
+//   }
+
+// })
 
 const server = app.listen(4070, () => {
   console.log('App listening at port %s', server.address().port)
