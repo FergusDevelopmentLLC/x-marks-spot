@@ -1,6 +1,6 @@
-const fastcsv = require("fast-csv")
 const { Client } = require("pg")
-const format = require('pg-format');
+const fastcsv = require("fast-csv")
+const format = require('pg-format')
 const request = require("request")
 const states = require('./states.js').states
 const utils = require('./utils.js')
