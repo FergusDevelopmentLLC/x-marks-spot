@@ -84,6 +84,10 @@ CREATE TABLE population_county (
   PRIMARY KEY (id)
 );
 
+psql -h <REMOTE HOST> -p <REMOTE PORT> -U <DB_USER> <DB_NAME>
+
+psql carto_boundaries -U awspostgres -p 5432 -h aws-postgres-postgis.cqt3dcpevu0a.us-east-1.rds.amazonaws.com -c "\copy population_county FROM '/tmp/county_pop_2019.csv' with (format csv,header true, delimiter ',');"
+                                                
 COPY population_county(id, statefp, state_name, name, type, pop_2019)
 FROM '/tmp/county_pop_2019.csv'
 DELIMITER ','
@@ -91,3 +95,4 @@ CSV HEADER;
 
 select * from 
 population_county;
+
